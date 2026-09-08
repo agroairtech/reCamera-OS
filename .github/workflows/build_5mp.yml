@@ -27,6 +27,8 @@ jobs:
           # Crear la ruta antes de enlazar
           mkdir -p cvi_mpi/component/isp
           ln -sf ../../../SensorSupportList/sensor cvi_mpi/component/isp/sensor
+          cp SensorSupportList/sensor.mk cvi_mpi/component/isp/
+
                 
 
       - name: Compilar librería del sensor OV5647
