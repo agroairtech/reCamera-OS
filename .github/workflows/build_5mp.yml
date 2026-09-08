@@ -1,0 +1,35 @@
+name: Build 5MP OV5647 Driver
+
+on:
+  workflow_dispatch: # Permite ejecutar el script manualmente con un botón
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Descargar el código fuente
+        uses: actions/checkout@v3
+
+      - name: Instalar dependencias del sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential ninja-build automake autoconf libtool wget curl git gcc libssl-dev bc slib squashfs-tools android-sdk-libsparse-utils jq python3-distutils scons parallel tree python3-dev python3-pip device-tree-compiler cpio fakeroot flex bison genext2fs rsync unzip dosfstools mtools tcl cmake
+
+      - name: Configurar entorno y compilar Middleware
+        run: |
+          source build/envsetup_soc.sh
+          defconfig sg2002_recamera_emmc
+          build_middleware
+
+      - name: Compilar librería del sensor OV5647
+        run: |
+          source build/envsetup_soc.sh
+          defconfig sg2002_recamera_emmc
+          cd $MW_PATH/component/isp/sensor/cv181x
+          make ov_ov5647
+
+      - name: Subir archivo .so como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: libsns_ov5647
+          path: "**/*libsns_ov5647.so"
