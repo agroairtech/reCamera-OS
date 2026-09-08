@@ -20,16 +20,13 @@ jobs:
       - name: Aplicar Overlay y preparar directorios
         run: |
           mkdir -p build/boards/cv181x/sg2002_recamera_emmc
-          # Copiamos la configuración de la placa
           cp external/configs/sg2002_recamera_emmc_defconfig build/boards/cv181x/sg2002_recamera_emmc/
-          # Copiamos las modificaciones del SDK desde la capa external
           rsync -avz external/build/ build/ || true
           rsync -avz external/buildroot/ buildroot/ || true
-          rsync -avz external/cvi_mpi/ cvi_mpi/ || true
           rsync -avz external/SensorSupportList/ SensorSupportList/ || true
-          # Hacemos el enlace simbólico que espera el Makefile del SDK
-          cd cvi_mpi
-          ln -sf ../SensorSupportList component/isp/sensor
+          # Crear la ruta antes de enlazar
+          mkdir -p cvi_mpi/component/isp
+          ln -sf ../../../SensorSupportList cvi_mpi/component/isp/sensor
                 
       - name: Configurar entorno y compilar Middleware
         run: |
