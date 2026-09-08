@@ -21,17 +21,17 @@ extern "C" {
 
 static const OV5647_MODE_S g_astOv5647_mode[OV5647_MODE_NUM] = {
 	[OV5647_MODE_1920X1080P30] = {
-		.name = "1920x1080p30",
+		.name = "1920x1080p30_HACKED_5MP", // Cambiamos el nombre para distinguirlo en los logs
 		.astImg[0] = {
 			.stSnsSize = {
-				.u32Width = 1920,
-				.u32Height = 1080,
+				.u32Width = 2592,   // Resolución nativa 5MP
+				.u32Height = 1944,
 			},
 			.stWndRect = {
 				.s32X = 0,
 				.s32Y = 0,
-				.u32Width = 1920,
-				.u32Height = 1080,
+				.u32Width = 2592,   // Ventana de captura a 5MP
+				.u32Height = 1944,
 			},
 			.stMaxSize = {
 				.u32Width = 2592,
@@ -39,13 +39,13 @@ static const OV5647_MODE_S g_astOv5647_mode[OV5647_MODE_NUM] = {
 			},
 		},
 
-		.f32MaxFps = 30,
-		.f32MinFps = 0.711, /* 0x4e2 * 30 / 0xFFFF */
-		.u32HtsDef = 2416,
-		.u32VtsDef = 1104,
+		.f32MaxFps = 15,          // 5MP nativo opera a 15fps
+		.f32MinFps = 0.711, 
+		.u32HtsDef = 2844,        // HTS de la tabla de 5MP
+		.u32VtsDef = 1968,        // VTS de la tabla de 5MP
 		.stExp[0] = {
 			.u16Min = 4,
-			.u16Max = 1104 - 4,
+			.u16Max = 1968 - 4,   // El máximo de exposición se calcula como VTS - 4
 			.u16Def = 400,
 			.u16Step = 1,
 		},
