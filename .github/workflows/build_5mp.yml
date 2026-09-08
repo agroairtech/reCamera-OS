@@ -28,11 +28,6 @@ jobs:
           mkdir -p cvi_mpi/component/isp
           ln -sf ../../../SensorSupportList cvi_mpi/component/isp/sensor
                 
-      - name: Configurar entorno y compilar Middleware
-        run: |
-          source build/envsetup_soc.sh
-          defconfig sg2002_recamera_emmc
-          build_middleware
 
       - name: Compilar librería del sensor OV5647
         run: |
@@ -40,6 +35,7 @@ jobs:
           defconfig sg2002_recamera_emmc
           cd $MW_PATH/component/isp/sensor/cv181x
           make ov_ov5647
+
 
       - name: Subir archivo .so como artefacto
         uses: actions/upload-artifact@v4
