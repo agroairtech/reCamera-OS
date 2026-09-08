@@ -26,7 +26,7 @@ jobs:
           rsync -avz external/SensorSupportList/ SensorSupportList/ || true
           # Crear la ruta antes de enlazar
           mkdir -p cvi_mpi/component/isp
-          ln -sf ../../../SensorSupportList cvi_mpi/component/isp/sensor
+          ln -sf ../../../SensorSupportList/sensor cvi_mpi/component/isp/sensor
                 
 
       - name: Compilar librería del sensor OV5647
