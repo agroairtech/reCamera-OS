@@ -17,6 +17,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential ninja-build automake autoconf libtool wget curl git gcc libssl-dev bc slib squashfs-tools android-sdk-libsparse-utils jq python3-distutils scons parallel tree python3-dev python3-pip device-tree-compiler cpio fakeroot flex bison genext2fs rsync unzip dosfstools mtools tcl cmake
 
+      - name: Aplicar Overlay de hardware de Seeed
+        run: |
+          mkdir -p build/boards/cv181x/sg2002_recamera_emmc
+          rsync -a external/build/ build/ || true
+          cp external/configs/sg2002_recamera_emmc_defconfig build/boards/cv181x/sg2002_recamera_emmc/
+                
       - name: Configurar entorno y compilar Middleware
         run: |
           source build/envsetup_soc.sh
