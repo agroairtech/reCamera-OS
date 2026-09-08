@@ -24,9 +24,10 @@ jobs:
           rsync -avz external/build/ build/ || true
           rsync -avz external/buildroot/ buildroot/ || true
           rsync -avz external/SensorSupportList/ SensorSupportList/ || true
-          # Crear la ruta antes de enlazar
+          
+          # CORRECCIÓN: Copia física completa en lugar de acceso directo
           mkdir -p cvi_mpi/component/isp
-          ln -sf ../../../SensorSupportList/sensor cvi_mpi/component/isp/sensor
+          cp -r SensorSupportList/sensor cvi_mpi/component/isp/
           cp SensorSupportList/sensor.mk cvi_mpi/component/isp/
 
                 
